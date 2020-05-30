@@ -66,7 +66,7 @@ public class GuardianServiceImpl implements GuardianService{
     }
 
     @Override
-    public GuardianDTO patchCustomer(Long id, GuardianDTO guardianDTO) {
+    public GuardianDTO patchGuardian(Long id, GuardianDTO guardianDTO) {
         return guardianRepository.findById(id).map(guardian -> {
             if(guardianDTO.getFirstName()!=null)
             {
@@ -81,5 +81,10 @@ public class GuardianServiceImpl implements GuardianService{
             return returnDto;
 
         }).orElseThrow(RuntimeException::new);
+    }
+
+    @Override
+    public void deleteGuardianById(Long id) {
+        guardianRepository.deleteById(id);
     }
 }

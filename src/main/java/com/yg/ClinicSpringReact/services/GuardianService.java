@@ -11,6 +11,7 @@ public interface GuardianService {
     GuardianDTO getGuardianById(Long id);
     GuardianDTO createNewGuardian(GuardianDTO guardianDTO);
     GuardianDTO saveGuardianByDto(Long id,GuardianDTO guardianDTO);
-    GuardianDTO patchCustomer(Long id,GuardianDTO guardianDTO);
+    GuardianDTO patchGuardian(Long id,GuardianDTO guardianDTO);
+    void deleteGuardianById(Long id);
 
 }

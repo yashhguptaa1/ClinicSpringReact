@@ -6,40 +6,38 @@ import org.springframework.boot.CommandLineRunner;//springBoot specific
 import org.springframework.stereotype.Component;
 
 @Component
-public class DataLoader implements CommandLineRunner {
-    private CategoryRepository categoryRepository;
+public class DataLoader implements CommandLineRunner{
+    private CategoryRepository categoryRespository;
 
-    public DataLoader(CategoryRepository categoryRepository)
-    {
-        this.categoryRepository=categoryRepository;
-    }
+        public DataLoader(CategoryRepository categoryRespository) {
+            this.categoryRespository = categoryRespository;
+        }
 
-    @Override
-    public void run(String... args) throws Exception {
+        @Override
+        public void run(String... args) throws Exception {
+            Category fruits = new Category();
+            fruits.setName("Fruits");
 
-        Category fruits=new Category();
-        fruits.setName("Fruits");
+            Category dried = new Category();
+            dried.setName("Dried");
 
-        Category dried = new Category();
-        dried.setName("Dried");
+            Category fresh = new Category();
+            fresh.setName("Fresh");
 
-        Category fresh = new Category();
-        fresh.setName("Fresh");
+            Category exotic = new Category();
+            exotic.setName("Exotic");
 
-        Category exotic = new Category();
-        exotic.setName("Exotic");
+            Category nuts = new Category();
+            nuts.setName("Nuts");
 
-        Category nuts = new Category();
-        nuts.setName("Nuts");
-
-        categoryRepository.save(fruits);
-        categoryRepository.save(dried);
-        categoryRepository.save(fresh);
-        categoryRepository.save(exotic);
-        categoryRepository.save(nuts);
+            categoryRespository.save(fruits);
+            categoryRespository.save(dried);
+            categoryRespository.save(fresh);
+            categoryRespository.save(exotic);
+            categoryRespository.save(nuts);
 
 
-        System.out.println("Data Loaded = " + categoryRepository.count() );
+            System.out.println("Data Loaded = " + categoryRespository.count() );
 
-    }
+        }
 }

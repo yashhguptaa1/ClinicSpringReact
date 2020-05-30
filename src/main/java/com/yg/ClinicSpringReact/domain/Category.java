@@ -1,5 +1,4 @@
 package com.yg.ClinicSpringReact.domain;
-
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -16,7 +15,4 @@ public class Category {
     private Long id;
     private String name;
 
-    public void setName(String fruits) {
-        this.name=fruits;
-    }
 }

@@ -10,5 +10,7 @@ public interface GuardianService {
     List<GuardianDTO> getAllGuardians();
     GuardianDTO getGuardianById(Long id);
     GuardianDTO createNewGuardian(GuardianDTO guardianDTO);
+    GuardianDTO saveGuardianByDto(Long id,GuardianDTO guardianDTO);
+    GuardianDTO patchCustomer(Long id,GuardianDTO guardianDTO);
 
 }

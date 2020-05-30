@@ -36,5 +36,17 @@ public class GuardianController {
         return new ResponseEntity<GuardianDTO>(guardianService.createNewGuardian(guardianDTO),HttpStatus.CREATED);
     }
 
+    @PutMapping({"/{id}"})
+    public ResponseEntity<GuardianDTO> updateGuardian(@PathVariable Long id,@RequestBody GuardianDTO guardianDTO)
+    {
+        return new ResponseEntity<GuardianDTO>(guardianService.saveGuardianByDto(id,guardianDTO),HttpStatus.OK);
+    }
+
+    //when using patch with postman first bexecute post then execute patch
+    @PatchMapping({"/{id}"})
+    public ResponseEntity<GuardianDTO> patchGuardian(@PathVariable Long id,@RequestBody GuardianDTO guardianDTO)
+    {
+        return new ResponseEntity<GuardianDTO>(guardianService.saveGuardianByDto(id,guardianDTO),HttpStatus.OK);
+    }
 
 }

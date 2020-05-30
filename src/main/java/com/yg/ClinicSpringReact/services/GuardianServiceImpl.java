@@ -40,12 +40,46 @@ public class GuardianServiceImpl implements GuardianService{
 
     @Override
     public GuardianDTO createNewGuardian(GuardianDTO guardianDTO) {
-        Guardian guardian=guardianMapper.guardianDtoToGuardian(guardianDTO);
+
+        return saveAndReturnDTO(guardianMapper.guardianDtoToGuardian(guardianDTO));
+    }
+
+    // Since Create and update operation are pretty
+    // much same only difference is initial code
+    // so making one function for that after function
+
+    private GuardianDTO saveAndReturnDTO(Guardian guardian)
+    {
         Guardian savedGuardian=guardianRepository.save(guardian);
         GuardianDTO returnDto=guardianMapper.guardianToGuardianDTO(savedGuardian);
         returnDto.setGuardianUrl("/api/v1/guardian/"+savedGuardian.getId());
-
-
         return returnDto;
+    }
+
+    @Override
+    public GuardianDTO saveGuardianByDto(Long id, GuardianDTO guardianDTO) {
+
+        Guardian guardian =guardianMapper.guardianDtoToGuardian(guardianDTO);
+        guardian.setId(id);
+
+        return saveAndReturnDTO(guardian);
+    }
+
+    @Override
+    public GuardianDTO patchCustomer(Long id, GuardianDTO guardianDTO) {
+        return guardianRepository.findById(id).map(guardian -> {
+            if(guardianDTO.getFirstName()!=null)
+            {
+                guardian.setFirstName(guardianDTO.getFirstName());
+            }
+            if(guardianDTO.getLastName()!=null)
+            {
+                guardian.setLastName(guardianDTO.getLastName());
+            }
+            GuardianDTO returnDto=guardianMapper.guardianToGuardianDTO(guardianRepository.save(guardian));
+            returnDto.setGuardianUrl("/api/v1/guardian/"+id);
+            return returnDto;
+
+        }).orElseThrow(RuntimeException::new);
     }
 }

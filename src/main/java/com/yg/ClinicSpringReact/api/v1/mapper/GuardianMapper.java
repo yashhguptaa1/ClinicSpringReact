@@ -9,4 +9,5 @@ import org.mapstruct.factory.Mappers;
 public interface GuardianMapper {
     GuardianMapper INSTANCE= Mappers.getMapper(GuardianMapper.class);
     GuardianDTO guardianToGuardianDTO(Guardian guardian);
+    Guardian guardianDtoToGuardian(GuardianDTO guardianDTO);
 }

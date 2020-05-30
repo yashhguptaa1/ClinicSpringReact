@@ -2,6 +2,7 @@ package com.yg.ClinicSpringReact.services;
 
 import com.yg.ClinicSpringReact.api.v1.mapper.GuardianMapper;
 import com.yg.ClinicSpringReact.api.v1.model.GuardianDTO;
+import com.yg.ClinicSpringReact.domain.Guardian;
 import com.yg.ClinicSpringReact.repositories.GuardianRepository;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +36,16 @@ public class GuardianServiceImpl implements GuardianService{
         return guardianRepository.findById(id)
                 .map(guardianMapper::guardianToGuardianDTO)
                 .orElseThrow(RuntimeException::new);
+    }
+
+    @Override
+    public GuardianDTO createNewGuardian(GuardianDTO guardianDTO) {
+        Guardian guardian=guardianMapper.guardianDtoToGuardian(guardianDTO);
+        Guardian savedGuardian=guardianRepository.save(guardian);
+        GuardianDTO returnDto=guardianMapper.guardianToGuardianDTO(savedGuardian);
+        returnDto.setGuardianUrl("/api/v1/guardian/"+savedGuardian.getId());
+
+
+        return returnDto;
     }
 }

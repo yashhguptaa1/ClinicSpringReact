@@ -35,7 +35,7 @@ public class GuardianServiceImpl implements GuardianService{
     public GuardianDTO getGuardianById(Long id) {
         return guardianRepository.findById(id)
                 .map(guardianMapper::guardianToGuardianDTO)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class GuardianServiceImpl implements GuardianService{
             returnDto.setGuardianUrl("/api/v1/guardian/"+id);
             return returnDto;
 
-        }).orElseThrow(RuntimeException::new);
+        }).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override

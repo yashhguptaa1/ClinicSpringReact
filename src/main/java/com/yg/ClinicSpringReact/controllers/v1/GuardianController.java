@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/api/v1/guardians/")
 public class GuardianController {
 
@@ -19,42 +19,47 @@ public class GuardianController {
     }
 
     @GetMapping
-    public ResponseEntity<GuardianListDTO> getListOfGuardians(){
+    @ResponseStatus(HttpStatus.OK)
+    public GuardianListDTO getListOfGuardians(){
 
-        return new ResponseEntity<GuardianListDTO>(new GuardianListDTO(guardianService.getAllGuardians()), HttpStatus.OK);
+        return new GuardianListDTO(guardianService.getAllGuardians());
     }
 
     @GetMapping({"{id}"})
-    public ResponseEntity<GuardianDTO> getGuardianById(@PathVariable Long id)
+    @ResponseStatus(HttpStatus.OK)
+    public GuardianDTO getGuardianById(@PathVariable Long id)
     {
-        return new ResponseEntity<GuardianDTO>(guardianService.getGuardianById(id),HttpStatus.OK);
+        return guardianService.getGuardianById(id);
     }
 
     @PostMapping
-    public ResponseEntity<GuardianDTO> createNewGuardian(@RequestBody GuardianDTO guardianDTO)
+    @ResponseStatus(HttpStatus.CREATED)
+    public GuardianDTO createNewGuardian(@RequestBody GuardianDTO guardianDTO)
     {
-        return new ResponseEntity<GuardianDTO>(guardianService.createNewGuardian(guardianDTO),HttpStatus.CREATED);
+        return guardianService.createNewGuardian(guardianDTO);
     }
 
     @PutMapping({"/{id}"})
-    public ResponseEntity<GuardianDTO> updateGuardian(@PathVariable Long id,@RequestBody GuardianDTO guardianDTO)
+    @ResponseStatus(HttpStatus.OK)
+    public GuardianDTO updateGuardian(@PathVariable Long id,@RequestBody GuardianDTO guardianDTO)
     {
-        return new ResponseEntity<GuardianDTO>(guardianService.saveGuardianByDto(id,guardianDTO),HttpStatus.OK);
+        return guardianService.saveGuardianByDto(id,guardianDTO);
     }
 
     //when using patch with postman first execute post then execute patch
     @PatchMapping({"/{id}"})
-    public ResponseEntity<GuardianDTO> patchGuardian(@PathVariable Long id,@RequestBody GuardianDTO guardianDTO)
+    @ResponseStatus(HttpStatus.OK)
+    public GuardianDTO patchGuardian(@PathVariable Long id,@RequestBody GuardianDTO guardianDTO)
     {
 
-        return new ResponseEntity<GuardianDTO>(guardianService.patchGuardian(id,guardianDTO),HttpStatus.OK);
+        return guardianService.patchGuardian(id,guardianDTO);
     }
 
     @DeleteMapping({"/{id}"})
-    public ResponseEntity<Void> deleteGuardian(@PathVariable Long id)
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteGuardian(@PathVariable Long id)
     {
         guardianService.deleteGuardianById(id);
-        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 

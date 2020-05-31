@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Arrays;
+
 
 @Service
 public class CategoryServiceImpl  implements CategoryService {
@@ -23,8 +25,7 @@ public class CategoryServiceImpl  implements CategoryService {
     @Override
     public List<CategoryDTO> getAllCategories() {
 
-        return categoryRepository.findAll()
-                .stream()
+        return categoryRepository.findAll().stream()
                 .map(categoryMapper::categoryToCategoryDTO)
                 .collect(Collectors.toList());
     }
